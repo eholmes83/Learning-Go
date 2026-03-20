@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"math/rand"
+	"time"
 )
 
 const prompt = "and press ENTER to continue..."
@@ -15,18 +17,24 @@ func main() {
 
 	// another way - declare type and name and assign value (doing all this way)
 
-	var firstNumber = 2
-	var secondNumber = 5
-	var subtraction = 7
-	var answer int
+	// seed the random number generator
+	rand.Seed(time.Now().UnixNano())
 
-	reader := bufio.NewReader(os.Stdin)
+	var firstNumber = rand.Intn(8) + 2
+	var secondNumber = rand.Intn(8) + 2
+	var subtraction = rand.Intn(8) + 2
+	var answer = (firstNumber * secondNumber) - subtraction
+
+	guessTheNumberGame(firstNumber, secondNumber, subtraction, answer)
 
 	
 	// one step variable - declare name, assign value, and let Go infer the type
 	// subtraction := 7
-	
-	
+}
+
+func guessTheNumberGame(firstNumber, secondNumber, subtraction, answer int) {
+
+	reader := bufio.NewReader(os.Stdin)
 	// ----------- GUESS THE NUMBER GAME --------------	
 	
 	// display welcome/instructions
@@ -51,7 +59,6 @@ func main() {
 	reader.ReadString('\n')
 
 	// give them the answer at the end
-	answer = (firstNumber * secondNumber) - subtraction
 	fmt.Println("The answer is", answer)
 }
 
